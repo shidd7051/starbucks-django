@@ -27,3 +27,4 @@ def send_otp(phone, otp):
     except Exception as e:
         print("Twilio error:", e)
         return False
+
