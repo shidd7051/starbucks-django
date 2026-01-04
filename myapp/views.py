@@ -90,11 +90,13 @@ def register(request):
 
         otp_code = str(random.randint(100000, 999999))
 
-        OTP.objects.create(
-            user=user,
-            phone=phone,
-            code=otp_code
-        )
+        OTP.objects.update_or_create(
+    user=user,
+    defaults={
+        "phone": phone,
+        "code": otp_code
+    }
+)
 
         send_otp(phone, otp_code)
 

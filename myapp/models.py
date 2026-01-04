@@ -8,28 +8,28 @@ from django.dispatch import receiver
 # PROFILE MODEL (extra fields for user)
 # -----------------------------------------------------------
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    receive_emails = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     receive_emails = models.BooleanField(default=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.user.username
-
-
-# Auto create & save Profile
-@receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
+#     def __str__(self):
+#         return self.user.username
 
 
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
-    try:
-        instance.profile.save()
-    except:
-        Profile.objects.create(user=instance)
+# # Auto create & save Profile
+# @receiver(post_save, sender=User)
+# def create_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+
+
+# @receiver(post_save, sender=User)
+# def save_profile(sender, instance, **kwargs):
+#     try:
+#         instance.profile.save()
+#     except:
+#         Profile.objects.create(user=instance)
 
 
 

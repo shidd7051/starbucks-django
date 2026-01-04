@@ -1,36 +1,32 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import Profile,UserRegistration,OTP,Contact
+from .models import UserRegistration, OTP, Contact
 
 
-class ProfileInline(admin.StackedInline):
-    model = Profile
-    can_delete = False
-    verbose_name_plural = "Profile"
+# -------------------------------
+# USER REGISTRATION ADMIN
+# -------------------------------
+@admin.register(UserRegistration)
+class UserRegistrationAdmin(admin.ModelAdmin):
+    list_display = ("full_name", "email", "created_at")
+    search_fields = ("full_name", "email")
+    list_filter = ("created_at",)
 
 
-class UserAdmin(BaseUserAdmin):
-    list_display = ("username", "email", "first_name", "last_name", "is_staff")
-    search_fields = ("email", "username", "first_name", "last_name")
-    ordering = ("email",)
-    inlines = [ProfileInline]
+# -------------------------------
+# OTP ADMIN
+# -------------------------------
+@admin.register(OTP)
+class OTPAdmin(admin.ModelAdmin):
+    list_display = ("user", "phone", "code", "created_at")
+    search_fields = ("user__email", "phone")
+    list_filter = ("created_at",)
 
 
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
-admin.site.register(OTP)
-
-
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ("user", "receive_emails", "created_at")
-
-admin.site.register(UserRegistration)
-
-
-
+# -------------------------------
+# CONTACT ADMIN
+# -------------------------------
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'created_at')
-    search_fields = ('name', 'email')
+    list_display = ("name", "email", "created_at")
+    search_fields = ("name", "email")
+    list_filter = ("created_at",)
