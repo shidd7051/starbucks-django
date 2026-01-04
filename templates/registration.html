@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account | Starbucks</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+        background: #fff;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo {
+        width: 55px;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #1e3932;
+        margin-bottom: 5px;
+    }
+
+    .subtitle {
+        font-weight: bold;
+        font-size: 14px;
+        color: #00754A;
+    }
+
+    .desc {
+        font-size: 14px;
+        margin: 10px 0 20px;
+        color: #444;
+        line-height: 1.4;
+    }
+
+    .form-box {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 30px;
+        text-align: left;
+    }
+
+    .sec-title {
+        margin: 20px 0 10px;
+        font-size: 15px;
+        font-weight: bold;
+        color: #1e3932;
+    }
+
+    label {
+        font-size: 14px;
+        color: #444;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    input {
+        width: 100%;
+        padding: 13px;
+        border-radius: 8px;
+        border: 1.5px solid #ccc;
+        font-size: 15px;
+        margin-bottom: 18px;
+    }
+
+    input:focus {
+        border-color: #00754A;
+    }
+
+    small {
+        font-size: 12px;
+        color: #666;
+        display: block;
+        line-height: 1.4;
+    }
+
+    .checkbox-area {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+    .checkbox-area input {
+        margin-top: 3px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .btn {
+        display: block;
+        width: 180px;
+        margin: 25px auto 0;
+        background: #00754A;
+        color: #fff;
+        padding: 14px;
+        font-size: 17px;
+        border-radius: 35px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .btn:hover {
+        background: #055c3b;
+    }
+
+</style>
+
+</head>
+<body>
+
+<a href="/"><img src="https://upload.wikimedia.org/wikipedia/sco/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"
+class="logo"></a>
+
+<div class="container"><br><br><br>
+    <h1>Create an account</h1>
+    <p class="subtitle">STARBUCKS® REWARDS</p>
+    <p class="desc">Join Starbucks Rewards to earn Stars for free food and drinks...</p>
+
+    <div class="form-box">
+
+        <!-- SHOW DJANGO MESSAGES -->
+        {% if messages %}
+            {% for m in messages %}
+                <p style="color:red; margin-bottom:10px;">{{ m }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <!-- ⭐ FIXED: ADDED ACTION URL ⭐ -->
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+
+            <p style="color:#00754A; font-size:14px;">* indicates required field</p>
+
+            <p class="sec-title">Personal Information</p>
+
+            <label>* First name</label>
+            <input type="text" name="first_name" required>
+
+            <label>* Last name</label>
+            <input type="text" name="last_name" required>
+
+            <p class="sec-title">Account Security</p>
+
+            <label>* Email</label>
+            <input type="email" name="email" required>
+
+            <label>* Phone Number</label>
+            <input type="text" name="phone" placeholder="+91XXXXXXXXXX" required>
+
+            <label>* Password</label>
+            <input type="password" name="password1" required>
+
+            <label>* Confirm Password</label>
+            <input type="password" name="password2" required>
+
+            <small>Password must be strong.</small>
+
+            <p class="sec-title">Email Preferences</p>
+
+            <div class="checkbox-area">
+                <input type="checkbox" name="receive_emails">
+                <span>Yes, send me email updates</span>
+            </div>
+
+            <p class="sec-title">Terms</p>
+
+            <div class="checkbox-area">
+                <input type="checkbox" required>
+                <small>I agree to terms and conditions.</small>
+            </div>
+
+            <button class="btn" type="submit">Create account</button>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

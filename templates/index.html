@@ -1,0 +1,453 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starbucks Clone</title>
+
+    <link rel="icon" href="{% static 'img/1.png' %}">
+
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+</head>
+
+<body>
+ <style>
+     * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* HEADER */
+        header {
+            width: 100%;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            background: #fff;
+            z-index: 1000;
+        }
+
+        .left-group {
+            display: flex;
+            align-items: center;
+            gap: 45px;
+        }
+
+        .logo {
+            width: 45px;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .right-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-weight: bold;
+        }
+
+        .btn-outline,
+        .btn-fill {
+            padding: 6px 18px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 14px;
+            border: 1px solid #000;
+            font-weight: bold;
+            background: transparent;
+        }
+
+        .btn-fill {
+            background: #000;
+            color: #fff;
+        }
+
+        /* HAMBURGER MENU */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: #000;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            height: 100vh;
+            background: #fff;
+            padding: 25px;
+            transition: .3s;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .close-btn {
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+
+        .mobile-links a {
+            font-size: 20px;
+            padding: 10px 0;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            display: flex;
+        }
+
+        .active {
+            right: 0;
+        }
+
+        /* BANNER */
+        .starbucks-banner {
+            background: #294B34;
+            padding: 23px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .starbucks-btn {
+            background: transparent;
+            border: 2px solid #fff;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .starbucks-btn:hover {
+            background: #fff;
+            color: #294B34;
+        }
+
+        /* HERO SECTION */
+        .hero-text {
+            background: #b00032;
+            color: #fff;
+            padding: 120px 60px;
+        }
+
+        .hero-text h2 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .order-btn {
+            background: #fff;
+            color: #005c3a;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            font-weight: bold;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:900px) {
+
+            nav,
+            .right-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        .row {
+            text-align: center;
+        }
+
+    footer a {
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+  transition: .2s;
+ text-align: left 
+}
+
+footer a:hover {
+  color: #006241;
+}
+
+footer h6 {
+  font-size: 15px;
+}
+
+.footer-bottom a {
+  margin: 0 5px;
+}
+ </style>
+    <!-- HEADER -->
+    <header>
+        <div class="left-group">
+           <a href="/"> <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/d/d3/Starbucks_Corporation_Logo_2011.svg"></a>
+
+            <nav>
+                <a href="{% url 'about' %}">About</a>
+                <a href="">Menu</a>
+                <a href="#">Rewards</a>
+                <a href="#">Gift Cards</a>
+                 <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+        </div>
+
+        <div class="right-nav">
+            📍 Find a store
+            <a href="{% url 'login' %}"><button class="btn-outline">Sign in</button></a>
+            <a href="{% url 'registration' %}"><button class="btn-fill">Join now</button></a>
+        </div>
+
+        <div class="hamburger" onclick="openMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="close-btn" onclick="closeMenu()">✕</span>
+
+        <div class="mobile-links">
+            <a href="{% url 'about' %}">About</a>
+            <a href="#">Menu</a>
+            <a href="#">Rewards</a>
+            <a href="#">Gift Cards</a>
+        </div>
+
+        <a href="{% url 'login' %}"><button class="btn-outline">Sign in</button></a>
+        <a href="{% url 'registration' %}"><button class="btn-fill">Join now</button></a>
+
+        📍 Find a store
+    </div>
+
+    <!-- BANNER -->
+    <div class="starbucks-banner">
+        It’s a great day for coffee
+        <button class="starbucks-btn">Start an order</button>
+    </div>
+
+    <!-- HERO SECTION -->
+    <div class="container mt-4">
+        <div class="row g-0">
+            <div class="col-lg-6 hero-text">
+                <h2>Bring on the merry</h2>
+                <p>Festive flavors of spiced gingerbread, rich caramel and sweet peppermint are here to make every
+                    moment merrier.</p>
+                <button class="order-btn">Order a seasonal treat</button>
+            </div>
+
+            <div class="col-lg-6 hero-image">
+                <img src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-103767.jpg">
+            </div>
+        </div>
+    </div>
+
+
+<div class="container mt-4">
+        <div class="row g-0">
+            <div class="col-lg-6 hero-text">
+                <h2>Our Roller Rabbit collection is here</h2>
+                <p>Grab the whimsical, limited-edition drinkware and Starbucks Card at your local coffeehouse. While supplies last.</p>
+                <button class="order-btn">Learn More</button>
+            </div>
+
+            <div class="col-lg-6 hero-image">
+                <img src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-103882.jpg">
+            </div>
+        </div>
+    </div>
+
+
+<div class="container mt-4" >
+        <div class="row g-0 ">
+            <div class="col-lg-6 hero-text bg-success">
+                <h2>A little bite, a lot of good</h2>
+                <p>For every purchase of Crispy Grilled Cheese on Sourdough at participating locations, we'll donate the value of two school meals* to support programs that feed kids. Together we’ll build a brighter future.</p>
+                <button class="order-btn">Order Now</button>
+            </div>
+
+            <div class="col-lg-6 hero-image">
+                <img src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-103839.jpg">
+            </div>
+        </div>
+    </div>
+
+<div class="container mt-4">
+        <div class="row g-0">
+            <div class="col-lg-6 hero-text bg-danger ">
+                <h3>Our gift to you</h3>
+                <p>Make the season merrier with a free handcrafted drink with purchase. It’s our treat during your first week as a Starbucks® Rewards member.**</p>
+                <button class="order-btn">Order Now</button>
+            </div>
+
+            <div class="col-lg-6 hero-image">
+                <img src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-103124.jpg">
+            </div>
+        </div>
+    </div>
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <span>*For every Crispy Grilled Chese on Sourdough purchased between December 2, 2025, and January 5, 2026, <br> in participating stores  in the US and Canada, Starbucks will <br> donate $0.50 to World Food Program USA  (www.wfpusa.org/starbucks). <br> This donation will be used to support WFP school meal programs globally, <br> and in the U.S. and Canada through No Kid Hungry (www.nokidhungry.org), to provide up to 12 million <br> meals with a minimum donation of $500,000 and a maximum donation <br> of $3M globally ($1.75M U.S. and Canada). WFP does not endorse any product or service.</span>
+    </div>
+</div>
+
+
+<hr>
+
+<!-- FOOTER SECTION -->
+<footer class="container pt-5 pb-4">
+
+  <div class="row">
+
+    <!-- About Us -->
+   <div class=" col-lg-3 col-md-6 mb-4 ">
+      <h6 class="fw-bold mb-3">About Us</h6>
+      <ul class="list-unstyled">
+        <li><a href="#">Our Company</a></li>
+        <li><a href="#">Our Coffee</a></li>
+        <li><a href="#">About Starbucks</a></li>
+        <li><a href="#">Starbucks Archive</a></li>
+        <li><a href="#">Investor Relations</a></li>
+        <li><a href="#">Customer Service</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Careers -->
+    <div class=" col-lg-3 col-md-6 mb-4 ">
+      <h6 class="fw-bold mb-3">Careers</h6>
+      <ul class="list-unstyled">
+        <li><a href="#">Culture and Values</a></li>
+        <li><a href="#">Belonging at Starbucks</a></li>
+        <li><a href="#">College Achievement Plan</a></li>
+        <li><a href="#">Alumni Community</a></li>
+        <li><a href="#">U.S. Careers</a></li>
+        <li><a href="#">International Careers</a></li>
+      </ul>
+    </div>
+
+    <!-- Social Impact -->
+    <div class=" col-lg-3 col-md-6 mb-4 ">
+      <h6 class="fw-bold mb-3">Social Impact</h6>
+      <ul class="list-unstyled">
+        <li><a href="#">Communities</a></li>
+        <li><a href="#">Starbucks Foundation</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Environmental and Social Impact Reporting</a></li>
+      </ul>
+    </div>
+
+    <!-- Business Partners -->
+    <div class=" col-lg-3 col-md-6 mb-4 ">
+      <h6 class="fw-bold mb-3">For Business Partners</h6>
+      <ul class="list-unstyled">
+        <li><a href="#">Landlord Support Center</a></li>
+        <li><a href="#">Suppliers</a></li>
+        <li><a href="#">Corporate Gift Card Sales</a></li>
+        <li><a href="#">Office and Foodservice Coffee</a></li>
+      </ul>
+    </div>
+
+
+
+  </div>
+
+  <hr class="my-4">
+
+  <!-- Social Icons -->
+  <div class="mb-3">
+    <i class="bi bi-spotify fs-4 me-3"></i>
+    <i class="bi bi-facebook fs-4 me-3"></i>
+    <i class="bi bi-pinterest fs-4 me-3"></i>
+    <i class="bi bi-instagram fs-4 me-3"></i>
+    <i class="bi bi-youtube fs-4 me-3"></i>
+    <i class="bi bi-twitter-x fs-4 me-3"></i>
+  </div>
+
+  <!-- Bottom Links -->
+  <div class="footer-bottom">
+    <a href="#">Privacy Notice</a> |
+    <a href="#">Consumer Health Privacy Notice</a> |
+    <a href="#">Terms of Use</a> |
+    <a href="#">Do Not Sell or Share My Personal Information</a> |
+    <a href="#">CA Supply Chain Act</a> |
+    <a href="#">Accessibility</a>
+  </div>
+
+</footer>
+
+
+
+
+
+
+    <script>
+        function openMenu() {
+            document.getElementById("mobileMenu").classList.add("active");
+        }
+        function closeMenu() {
+            document.getElementById("mobileMenu").classList.remove("active");
+        }
+    </script>
+
+</body>
+
+</html>

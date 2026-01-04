@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Company | Starbucks</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #1e1e1e;
+        }
+
+        header {
+            width: 100%;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            background: #fff;
+            z-index: 1000;
+            position: sticky;
+            top: 0;
+        }
+
+        .left-group {
+            display: flex;
+            align-items: center;
+            gap: 45px;
+        }
+
+        .logo {
+            width: 45px;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .right-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-weight: bold;
+        }
+
+        .btn-outline,
+        .btn-fill {
+            padding: 6px 18px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 14px;
+            border: 1px solid #000;
+            font-weight: bold;
+            background: transparent;
+        }
+
+        .btn-fill {
+            background: #000;
+            color: #fff;
+        }
+
+        /* HAMBURGER MENU */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: #000;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            height: 100vh;
+            background: #fff;
+            padding: 25px;
+            transition: .3s;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .close-btn {
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+
+        .mobile-links a {
+            font-size: 20px;
+            padding: 10px 0;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            display: flex;
+        }
+
+        .active {
+            right: 0;
+        }
+
+        /* CONTENT */
+        .container {
+            max-width: 860px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #1e3932;
+        }
+
+        h2 {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 30px 0 15px;
+            color: #1e3932;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.55;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .img-section {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0 30px;
+        }
+
+        /* 👉 Responsive */
+        @media(max-width:900px) {
+            nav,
+            .right-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .left-group {
+                gap: 15px;
+            }
+        }
+
+        @media(max-width:600px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="left-group">
+            <a href="/"><img class="logo" src="https://upload.wikimedia.org/wikipedia/en/d/d3/Starbucks_Corporation_Logo_2011.svg"></a>
+
+            <nav>
+                <a href="{% url 'about' %}">About</a>
+                <a href="#">Menu</a>
+                <a href="#">Rewards</a>
+                <a href="#">Gift Cards</a>
+            </nav>
+        </div>
+
+        <div class="right-nav">
+            📍 Find a store
+            <a href="{% url 'login' %}"><button class="btn-outline">Sign in</button></a>
+            <a href="{% url 'registration' %}"><button class="btn-fill">Join now</button></a>
+        </div>
+
+        <div class="hamburger" onclick="openMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="close-btn" onclick="closeMenu()">✕</span>
+
+        <div class="mobile-links">
+            <a href="{% url 'about' %}">About</a>
+            <a href="#">Menu</a>
+            <a href="#">Rewards</a>
+            <a href="#">Gift Cards</a>
+        </div>
+
+        <button class="{% url 'login' %}">Sign in</button>
+        <button class="{% url 'login' %}">Join now</button>
+
+        📍 Find a store
+    </div>
+
+    <div class="container">
+
+        <h1>Our Company</h1>
+
+        <img class="img-section" src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-72908.jpg">
+
+        <h2>Our Heritage</h2>
+
+        <p>Our story begins in 1971 along the cobblestone streets of Seattle’s historic Pike Place Market...</p>
+
+        <img class="img-section" src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-72909.jpg">
+        <h2>Coffee & Craft</h2>
+        <p>It takes many hands to craft the perfect cup of coffee…</p>
+
+        <img class="img-section" src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-72910.jpg">
+        <h2>Our Partners</h2>
+        <p>We like to say that we are not in the coffee business serving people…</p>
+
+        <img class="img-section" src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-72911.jpg">
+        <h2>We Believe in the Pursuit of Doing Good</h2>
+        <p>As it has been from the beginning, our purpose goes far beyond profit…</p>
+
+    </div>
+
+    <script>
+        function openMenu() {
+            document.getElementById("mobileMenu").classList.add("active");
+        }
+        function closeMenu() {
+            document.getElementById("mobileMenu").classList.remove("active");
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify OTP</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .verify-btn {
+            background: #00754A;
+            color: white;
+        }
+
+        .resend-btn {
+            background: #ddd;
+            margin-top: 10px;
+        }
+
+        .msg {
+            margin-bottom: 10px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+
+    <h2>Verify OTP</h2>
+
+    {% if messages %}
+        {% for m in messages %}
+            <p class="msg">{{ m }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <!-- VERIFY OTP -->
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="otp" placeholder="Enter OTP" required>
+        <button type="submit" class="verify-btn">Verify OTP</button>
+    </form>
+
+    <!-- RESEND OTP -->
+    <form method="GET" action="{% url 'send_otp' %}">
+        <button type="submit" class="resend-btn">Resend OTP</button>
+    </form>
+
+</div>
+
+</body>
+</html>

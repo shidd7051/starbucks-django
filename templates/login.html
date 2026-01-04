@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in | Starbucks</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 55px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1e3932;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        form {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 35px 30px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        label {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 7px;
+            border: 1px solid #ccc;
+            margin-bottom: 18px;
+        }
+
+        input:focus {
+            border-color: #00754A;
+        }
+
+        .checkbox-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .links a {
+            display: block;
+            font-size: 14px;
+            color: #00754A;
+            margin: 8px 0;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #00754A;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #055c3b;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                align-items: flex-start;
+                padding-top: 80px;
+            }
+            .logo {
+                width: 60px;
+                top: 15px;
+                left: 15px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+            form {
+                padding: 25px 20px;
+            }
+            input {
+                padding: 10px;
+            }
+            .btn {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/">
+        <img src="https://upload.wikimedia.org/wikipedia/sco/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"
+        class="logo">
+    </a>
+
+    <div class="container">
+
+        <h2>Sign in or create an account</h2>
+
+        <!-- Show Django Messages -->
+        {% if messages %}
+            {% for m in messages %}
+                <p style="color:red; margin-bottom:10px;">{{ m }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <!-- FIXED: Correct form action -->
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <label>* Email address</label>
+            <input type="email"
+                   name="email"
+                   placeholder="Enter your email"
+                   value="{{ email|default:'' }}"
+                   required>
+
+            <label>* Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+
+            <div class="checkbox-area">
+                <input type="checkbox" checked>
+                <span>Keep me signed in.</span>
+            </div>
+
+            <div class="links">
+                <a href="#">Forgot your username?</a>
+                <a href="#">Forgot your password?</a>
+            </div>
+
+            <button class="btn" type="submit">Sign in</button>
+        </form>
+    </div>
+
+</body>
+</html>
